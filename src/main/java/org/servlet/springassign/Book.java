@@ -1,9 +1,9 @@
 package org.servlet.springassign;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,32 +17,16 @@ public class Book {
     @Id
     private String isbn;
     private String title;
-    private int editionNumber;
+    private int edition_number;
     private int copyright;
-//    private List<Author> authorList;
 
-
-    /**
-     * Book Constructor
-     * @param isbn
-     * @param title
-     * @param editionNumber
-     * @param copyright
-     */
-//    public Book(String isbn, String title, int editionNumber, int copyright, List<Author> authorList) {
-//        this.isbn = isbn;
-//        this.title = title;
-//        this.editionNumber = editionNumber;
-//        this.copyright = copyright;
-//        this.authorList = authorList;
-//    }
-
-    public Book(String isbn, String title, int editionNumber, int copyright) {
-        this.isbn = isbn;
-        this.title = title;
-        this.editionNumber = editionNumber;
-        this.copyright = copyright;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "authorISBN",
+            joinColumns = @JoinColumn(name = "isbn"),
+            inverseJoinColumns = @JoinColumn(name = "authorID")
+    )
+    private List<Author> authorList = new ArrayList<>();
 
 
     /**
@@ -82,15 +66,15 @@ public class Book {
      * @return
      */
     public int getEditionNumber() {
-        return editionNumber;
+        return edition_number;
     }
 
     /**
      * Setter EditionNumber
-     * @param editionNumber
+     * @param edition_number
      */
-    public void setEditionNumber(int editionNumber) {
-        this.editionNumber = editionNumber;
+    public void setEditionNumber(int edition_number) {
+        this.edition_number = edition_number;
     }
 
     /**
@@ -110,29 +94,17 @@ public class Book {
     }
 
     /**
-     * Getter for AuthorList
-     * @return
+     * Getter and Setter for authorList
      */
-//    public List<Author> getAuthorList() {
-//        return authorList;
-//    }
-
-    /**
-     * Setter for AuthorList
-     * @param authorList
-     */
-//    public void setAuthorList(List<Author> authorList) {
-//        this.authorList = authorList;
-//    }
-
-    /**
-     * Print out the book information
-     */
-    public void printBookInformation(PrintStream printStream){
-        printStream.printf("\nISBN: %s \t\t Title: %-80s \t\t Edition #: %d \t\t Copyright: %s",
-                this.getIsbn(), this.getTitle(), this.getEditionNumber(), this.getCopyright());
-        //TODO Add the Authors - traverse the list
+    public List<Author> getAuthorList() {
+        return authorList;
     }
+
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
+    }
+
+
 }
 
 
