@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+//@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(path="api/v1") // This means URL's start with /demo (after Application path)
-
 public class MainController {
 
     public static final String BOOK = "/books";
@@ -22,7 +23,7 @@ public class MainController {
      * Get all books
      * @return
      */
-    @GetMapping(path = BOOK)
+    @GetMapping(path  = BOOK)
     public @ResponseBody
     Iterable<Book> getAllBooks() {
         return bookRepository.findAll();
