@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-//@CrossOrigin(origins = "*")
-//@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(path="api/v1") // This means URL's start with /demo (after Application path)
 public class MainController {
 
